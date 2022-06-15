@@ -178,12 +178,15 @@
         </div>
     </div>
     @if($piutangCondition == 0)
+    @foreach($piutang as $item)
     <form action="/create-payment" method="POST">
         @csrf
         <input type="number" name="total_tagihan" id="tagihan_posting" value="{{$total->sub_total}}" hidden>
         <input type="text" name="id_piutang" value="{{ $idPiutang }}" hidden>
+        <input type="text" name="tgl_pengajuan" value="{{ $item->tgl_pengajuan }}" hidden>
         <button class="btn btn-success btn-sm mb-2" type="submit" onclick="return confirm('Jika pembayaran sudah diposting, invoice tidak dapat diubah!')"><i class="fa fa-upload" style="margin-right: 7px"></i>Posting Pembayaran</button>
     </form>
+    @endforeach
    @else
    <br>
    <button class="btn btn-success btn-sm mb-2" style="border-radius:5px;" onclick="hasPosting()"><i class="fa fa-upload" style="margin-right: 7px"></i>Posting Pembayaran</button>

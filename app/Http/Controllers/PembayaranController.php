@@ -75,6 +75,8 @@ class PembayaranController extends Controller
     }
 
     public function storePayment(Request $request){
+
+
         $totalPembayaranFix = DetailPembayaranModel::selectRaw('sum(detail_pembayaran.total_pembayaran) AS total_pembayaran')
         ->join('pembayaran', 'detail_pembayaran.id_pembayaran', 'pembayaran.id')
         ->join('piutang', 'pembayaran.id_piutang', 'piutang.id')
@@ -108,7 +110,7 @@ class PembayaranController extends Controller
                     "isLocked" => true
                 ];
                 PiutangModel::where('id', $request->id_piutang)->update($payloadUpdate);
-                
+
 
                 $getLastJurnalId = JurnalModel::selectRaw('id')->orderBy('id', 'desc')->skip(1)->take(1)->first();
 
@@ -122,12 +124,15 @@ class PembayaranController extends Controller
                 }else{
                     $lastJurnalId = $getLastJurnalId['id']+1;
                 }
-                
+
+
+                // $request->tgl_pengajuan;
 
                 $jurnalPayload = [
                 [
                     "id_piutang" => $request->id_piutang,
                     "no_jurnal" => "J".str_pad($lastJurnalId, 4, '0', STR_PAD_LEFT),
+                    "tanggal"=> $request->tgl_pengajuan,
                     "keterangan" => "Piutang ". $getDebiturName["nm_debitur"],
                     "kode_perkiraan" => "2.1",
                     "flag" => "piutang-pendapatan",
@@ -137,6 +142,7 @@ class PembayaranController extends Controller
                 [
                     "id_piutang" => $request->id_piutang,
                     "no_jurnal" => "J".str_pad($lastJurnalId, 4, '0', STR_PAD_LEFT),
+                    "tanggal"=> $request->tgl_pengajuan,
                     "keterangan" => "Piutang ". $getDebiturName["nm_debitur"],
                     "kode_perkiraan" => "4.1",
                     "flag" => "pendapatan-piutang",
@@ -146,7 +152,7 @@ class PembayaranController extends Controller
             ];
                 $postJurnal = JurnalModel::insert($jurnalPayload);
                 return redirect('/invoice?id='.$request->id_piutang)->with('success', "Berhasil posting pembayaran");
-                
+
 
             }else{
                 return redirect('/invoice?id='.$request->id_piutang)->with('fail', "Gagal posting pembayaran");
@@ -392,7 +398,7 @@ class PembayaranController extends Controller
                     ->join('piutang', 'pembayaran.id_piutang', 'piutang.id')
                     ->where('piutang.id', $request->id_piutang)
                     ->first();
-    
+
                     $resultPayment = $paymentChecker["total_tagihan"] - $paymentChecker["total_pembayaran"];
 
                     if($resultPayment <= 0){
@@ -403,13 +409,13 @@ class PembayaranController extends Controller
                         ->join('debitur', 'piutang.id_debitur', 'debitur.id')
                         ->where('piutang.id', $request->id_piutang)
                         ->first();
-        
+
                         if(!$getLastJurnalId){
                             $lastJurnalId = 0+1;
                         }else{
                             $lastJurnalId = $getLastJurnalId['id']+1;
                         }
-                        
+
                         $jurnalPayload = [
                         [
                             "id_piutang" => $request->id_piutang,
@@ -431,25 +437,25 @@ class PembayaranController extends Controller
                         ],
                     ];
                         $postJurnal = JurnalModel::insert($jurnalPayload);
-                        
+
                         // AKHIR DARI PROSES POST DATA KE JURNAL
 
 
                     }else{
-                        
+
                         //PROSES POST DATA KE JURNAL
                         $getLastJurnalId = JurnalModel::selectRaw('id')->orderBy('id', 'desc')->skip(1)->take(1)->first();
                         $getDebiturName = PiutangModel::selectRaw('debitur.nm_debitur')
                         ->join('debitur', 'piutang.id_debitur', 'debitur.id')
                         ->where('piutang.id', $request->id_piutang)
                         ->first();
-        
+
                         if(!$getLastJurnalId){
                             $lastJurnalId = 0+1;
                         }else{
                             $lastJurnalId = $getLastJurnalId['id']+1;
                         }
-                        
+
                         $jurnalPayload = [
                         [
                             "id_piutang" => $request->id_piutang,
@@ -471,7 +477,7 @@ class PembayaranController extends Controller
                         ],
                     ];
                         $postJurnal = JurnalModel::insert($jurnalPayload);
-                        
+
                         // AKHIR DARI PROSES POST DATA KE JURNAL
                     }
 

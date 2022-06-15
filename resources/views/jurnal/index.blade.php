@@ -55,7 +55,7 @@
        <p>Data jurnal pada tahun {{$tahun}} tidak ditemukan</p>
 	</div>
   </div>
-  
+
 
   @else
   <div class="card mx-2">
@@ -84,7 +84,7 @@
           <tr>
               @if ($key == 0 || $key % 2 == 0)
               <td class="text-center" rowspan="2">{{ $item->no_jurnal }}</td>
-              <td class="text-center" rowspan="2">{{ $item->created_at->isoFormat('D MMMM Y') }}</td>
+              <td class="text-center" rowspan="2">{{ $item->tanggal->isoFormat('D MMMM Y') }}</td>
               <td rowspan="2">{{ $item->keterangan }}</td>
               @endif
               <td class="text-center" style="border-bottom-style:none;">{{ $item->kode_perkiraan }}</td>

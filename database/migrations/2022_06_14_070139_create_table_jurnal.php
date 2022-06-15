@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('table_jurnal', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_piutang');
+            $table->date('tanggal');
             $table->string('no_jurnal');
             $table->string('keterangan');
             $table->string('kode_perkiraan');

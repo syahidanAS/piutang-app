@@ -12,5 +12,5 @@ class JurnalModel extends Model
     protected $fillable = [
         'id_piutang', 'no_jurnal', 'keterangan','kode_perkiraan','nama_perkiraan','nominal'
     ];
-    protected $dates = ['created_at'];
+    protected $dates = ['created_at','tanggal'];
 }
