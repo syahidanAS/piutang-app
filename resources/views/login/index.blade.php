@@ -29,7 +29,7 @@
         </button>
     </div>
     @endif
-    
+
     {{-- LOGIN SECTION --}}
     <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
         <div class="card card0 border-0">
@@ -56,7 +56,7 @@
                             <label class="mb-1"><h6 class="mb-0 text-sm">Password</h6></label>
                             <input type="password" name="password" required>
                         </div>
-  
+
                         <div class="row mb-3 px-3 mt-2">
                             <button type="submit" class="btn btn-blue text-center">Login</button>
                         </div>
@@ -71,7 +71,7 @@
             </div>
             <div class="bg-blue py-4">
                 <div class="row px-3">
-                    <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; 2022. Rumah Sakit xxx</small>
+                    <small class="ml-4 ml-sm-5 mb-2">AKU TEH BINGUNG UI LOGINNYA MAU KAYAK GIMANA :')</small>
                     <div class="social-contact ml-4 ml-sm-auto">
                         <span class="fa fa-facebook mr-4 text-sm"></span>
                         <span class="fa fa-google-plus mr-4 text-sm"></span>

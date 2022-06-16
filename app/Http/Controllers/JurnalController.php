@@ -16,10 +16,13 @@ class JurnalController extends Controller
     }
     public function afterSearch(Request $request){
         $flag = "after-search";
-        $tahun = $request->tahun;
+        $from = $request->from;
+        $to = $request->to;
+        $periode = "Periode " . $from . "-" . $to;
+
         $dataJurnal = JurnalModel::
-        whereYear('created_at', $tahun)
+        whereBetween('tanggal', [$from,$to])
         ->get();
-       return view('jurnal.index', compact('flag','dataJurnal','tahun'));
+        return view('jurnal.index', compact('flag','dataJurnal','periode'));
     }
 }

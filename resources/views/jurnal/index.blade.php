@@ -23,14 +23,27 @@
       <div style="float:left;">
         <form action="/jurnal-after-search" method="POST">
             @csrf
-            <?php $years = range(2017, strftime("%Y", time())); ?>
+            <div class="row">
+                <div class="col">
+                    <input class="form-control" type="date" id="from" onchange="getFrom()" name="from" required>
+                </div>
+                -
+                <div class="col">
+                    <input class="form-control" type="date" id="to" onchange="getTo()"  name="to"required>
+                </div>
+                <div class="col">
+                    <button class="btn btn-info " type="submit"><i class="fa fa-search" onclick="search()"></i> Filter</button>
+                </div>
+              </div>
+
+
+            {{-- <?php $years = range(2017, strftime("%Y", time())); ?>
             <select name="tahun" onchange="getValue()" id="year-periode" style="font-size: 18px; ">
 				<option value="choose">Pilih Tahun</option>
                 <?php foreach($years as $year) : ?>
                 <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
               <?php endforeach; ?>
-            </select>
-            <button class="btn btn-info btn-sm" type="submit"><i class="fa fa-search" onclick="search()"></i> Filter</button>
+            </select> --}}
         </form>
       </div>
 
@@ -38,8 +51,9 @@
         {{-- <form action="/cetak-jurnal" method="POST" target="_blank"> --}}
         <form onclick="alert('Sebentar ya masih dimasak :)')">
             @csrf
-            <input type="number" id="year-periode2" name="tahun"  required hidden>
-            <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-print" onclick="search()"></i> Cetak</button>
+            <input class="" type="text" id="from-text" name="tahun" hidden  required>
+            <input class="" type="text" id="to-text" name="tahun" hidden  required>
+            <button class="btn btn-success" type="submit"><i class="fa fa-print" onclick="search()"></i> Cetak</button>
         </form>
       </div>
 
@@ -49,10 +63,10 @@
   @if(count($dataJurnal) <= 0)
   <div class="card mx-2">
 	<div class="card-header">
-		<h4 id="periodeValue">Rekap Umur Piutang Tahun {{$tahun}}</h4>
+		{{-- <h4 id="periodeValue">Rekap Umur Piutang Tahun {{$tahun}}</h4> --}}
 	</div>
 	<div class="card-body text-center">
-       <p>Data jurnal pada tahun {{$tahun}} tidak ditemukan</p>
+       {{-- <p>Data jurnal pada tahun {{$tahun}} tidak ditemukan</p> --}}
 	</div>
   </div>
 
@@ -119,9 +133,13 @@
   </div>
   @endif
   <script>
-    function getValue(){
-        let yearPeriode = document.getElementById("year-periode").value;
-        document.getElementById("year-periode2").value = yearPeriode;
+    function getFrom(){
+        let yearPeriode = document.getElementById("from").value;
+        document.getElementById("from-text").value = yearPeriode;
+    }
+    function getTo(){
+        let yearPeriode = document.getElementById("to").value;
+        document.getElementById("to-text").value = yearPeriode;
     }
 
   </script>

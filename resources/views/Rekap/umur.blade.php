@@ -35,11 +35,12 @@
       </div>
 
       <div style="float:left; margin-left:5px;">
-        <form action="/cetak-umur-piutang" method="POST" target="_blank">
+        <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-print" onclick="alert('Sabar dong fitur ini lagi diperhatiin dulu biar setia :)')"></i> Cetak</button>
+        {{-- <form action="/cetak-umur-piutang" method="POST" target="_blank">
             @csrf
             <input type="number" id="year-periode2" name="tahun" hidden required>
             <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-print" onclick="search()"></i> Cetak</button>
-        </form>
+        </form> --}}
       </div>
 
 
