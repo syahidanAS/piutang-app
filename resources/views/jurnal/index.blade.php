@@ -7,7 +7,7 @@
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Jurnal</h1>
+                <h1>Jurnal Umum</h1>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
 @section('content')
 <div class="card mx-2">
 	<div class="card-body">
-	  <h5 class="card-title">Jurnal</h5>
+	  <p class="card-title">Filter Periode Jurnal Umum</p>
 
       <div style="float:left;">
         <form action="/jurnal-after-search" method="POST">
@@ -32,7 +32,7 @@
                     <input class="form-control" type="date" id="to" onchange="getTo()"  name="to"required>
                 </div>
                 <div class="col">
-                    <button class="btn btn-info " type="submit"><i class="fa fa-search" onclick="search()"></i> Filter</button>
+                    <button class="btn btn-info " type="submit"><i class="fa fa-filter" onclick="search()"></i> Filter</button>
                 </div>
               </div>
 

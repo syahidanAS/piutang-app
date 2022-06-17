@@ -18,31 +18,36 @@
 @section('content')
 <div class="card mx-2">
 	<div class="card-body">
-	  <h5 class="card-title">Filter Tahun Rekap Umur Piutang</h5>
+	  <p class="card-title">Filter Tahun Rekap Umur Piutang</p>
 
       <div style="float:left;">
         <form action="/rekap-umur-piutang-after" method="POST">
             @csrf
             <?php $years = range(2017, strftime("%Y", time())); ?>
-            <select name="tahun" onchange="getValue()" id="year-periode" style="font-size: 18px; ">
-				<option value="choose">Pilih Tahun</option>
-                <?php foreach($years as $year) : ?>
-                <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
-              <?php endforeach; ?>
-            </select>
-            <button class="btn btn-info btn-sm" type="submit"><i class="fa fa-search" onclick="search()"></i> Filter</button>
+            <div class="row">
+                <div class="col">
+                    <select class="form-control" name="tahun" onchange="getValue()" id="year-periode" style="font-size: 18px; ">
+                        <option value="choose">Pilih Tahun</option>
+                        <?php foreach($years as $year) : ?>
+                        <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-info" type="submit"><i class="fa fa-filter" ></i> Filter</button>
+                </div>
+              </div>
         </form>
       </div>
 
-      <div style="float:left; margin-left:5px;">
-        <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-print" onclick="alert('Sabar dong fitur ini lagi diperhatiin dulu biar setia :)')"></i> Cetak</button>
-        {{-- <form action="/cetak-umur-piutang" method="POST" target="_blank">
-            @csrf
-            <input type="number" id="year-periode2" name="tahun" hidden required>
-            <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-print" onclick="search()"></i> Cetak</button>
-        </form> --}}
-      </div>
-
+  <div style="margin-left: 30%">
+    <form action="/cetak-umur-piutang" method="POST" target="_blank">
+        @csrf
+        <input  type="number" id="year-periode2" name="tahun" hidden required>
+        <button class="btn btn-success" type="submit"><i class="fa fa-print" onclick="search()"></i> Cetak</button>
+    </form>
+  </div>
+    
 
 	</div>
   </div>
