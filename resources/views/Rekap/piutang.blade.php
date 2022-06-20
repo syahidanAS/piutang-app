@@ -38,17 +38,26 @@
         <div class="card-header">
 			<div class="card">
 				<div class="card-body">
-                    <form action="/get-piutang-bulan-lalu" method="POST">
+                    <form action="/get-rekap-piutang" method="POST">
                         @csrf
                         <div class="form-group row">
                             <label for="inputPassword3" class="col-sm-2 col-form-label">Jenis Debitur</label>
                             <div class="col-sm-8">
+                              @if ($flag == "before-search")
                               <select class="js-example-basic-multiple form-control" name="debiturId[]" id="debiturId" multiple="multiple" required>
-                                  <option value="all">Pilih Semua</option>
-                                  @foreach($debitur as $item)
-                                  <option value="{{ $item->id }}">{{ $item->nm_debitur }}</option>
-                                  @endforeach
-                                </select>
+                                <option value="all">Pilih Semua</option>
+                                @foreach($debitur as $deb)
+                                <option value="{{ $deb->id }}">{{ $deb->nm_debitur }}</option>
+                                @endforeach
+                              </select>
+                              @else
+                              <select class="js-example-basic-multiple form-control" name="debiturId[]" id="debiturId" multiple="multiple" required>
+                                <option value="all">Pilih Semua</option>
+                                @foreach($debiturs as $debitur)
+                                <option value="{{ $debitur->id }}">{{ $debitur->nm_debitur }}</option>
+                                @endforeach
+                              </select>
+                              @endif
                               {{-- <input type="text" class="form-control" name="coba" style="margin-left: 15px" id="debitur">
                               <select class="form-control" name="id_debitur" id="source" onchange="getIdDebitur()" style="margin-left: 15px">
                                   @foreach ($debitur as $item)
@@ -59,32 +68,16 @@
                             </div>
                           </div>
                             <div class="form-group row">
-                              <label for="inputPassword3" class="col-sm-2 col-form-label">Periode Piutang s.d Bulan Lalu</label>
-                              <div class="col-sm-8">
-                                  <div class="row">
-                                      <div class="col">
-                                          <h6 class="text-info">Dari</h6>
-                                          <input class="form-control" type="date" id="tanggal1" name="date_1" value="{{date("Y")}}-01-01" readonly>
-                                      </div>
-                                      <div class="col">
-                                          <h6 class="text-info">Sampai</h6>
-                                          <input class="form-control" type="date" id="tanggal2" name="date_2" required>
-                                      </div>
-                                    </div>
-                              </div>
-
-                            </div>
-                            <div class="form-group row">
                               <label for="inputPassword3" class="col-sm-2 col-form-label">Periode Piutang s.d Bulan Ini</label>
                               <div class="col-sm-8">
                                   <div class="row">
                                       <div class="col">
                                           <h6 class="text-warning">Dari</h6>
-                                          <input class="form-control" type="date" name="date_3" id="tanggal3"  required>
+                                          <input class="form-control" type="date" name="from" id="from"  required>
                                       </div>
                                       <div class="col">
                                           <h6 class="text-warning">Sampai</h6>
-                                          <input class="form-control" type="date" name="date_4" id="tanggal4" required>
+                                          <input class="form-control" type="date" name="to" id="to" required>
                                       </div>
                                     </div>
                               </div>
@@ -107,114 +100,59 @@
 			  </div>
             <div class="pull-right">
             </div>
-            @if ($flag == "after-search")
-            <div class="card-body table-responsive" style="overflow-y: scroll; height:400px;">
-
-                <div class="col-xs-6">
-                      <div class="table-responsive">
-                        <table style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>No. Invoice</th>
-                                    <th>Nama Debitur</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if($resultBulanLalu->isEmpty())
-                                @foreach ($resultBulanIni as $item)
-                                <tr>
-                                    <td>1</td>
-                                    <td>{{$item->no_invoice}}</td>
-                                    <td>{{$item->nm_debitur}}</td>
-                                </tr>
-                                @endforeach
-                                @else
-                                @foreach ($resultBulanLalu as $item)
-                                <tr>
-                                    <td>1</td>
-                                    <td>{{$item->no_invoice}}</td>
-                                    <td>{{$item->nm_debitur}}</td>
-                                </tr>
-                                @endforeach
-                                @endif
-                            </tbody>
-                        </table>
-                              </div>
-                    </div>
-                      <div class="col-xs-6">
-                        <div class="table-responsive">
-
-                <table style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>PIUTANG S.D BULAN LALU</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if($resultBulanIni->isEmpty())
-                        @foreach ($resultBulanLalu as $item)
-                        <tr>
-                            <td>@currency(0)</td>
-                        </tr>
-                        @endforeach
-                        @else
-                        @foreach ($resultBulanIni as $item)
-                        <tr>
-                            <td>@currency($item->piutang_bulan_Ini)</td>
-                        </tr>
-                        @endforeach
-                        @endif
-                    </tbody>
-                </table>
-
+            {{-- DATA TABLE SECTION --}}
+            @if ($flag == "before-search")
+            <div class="card">
+                <div class="card-header">
+                  -
                 </div>
-            </div>
-            <div class="col-xs-6">
-               <div class="table-responsive">
-                <table style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>PIUTANG S.D BULAN INI</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @if($resultBulanLalu->isEmpty())
-                        @foreach ($resultBulanIni as $item)
-                        <tr>
-                            <td>@currency(0)</td>
-                        </tr>
-                        @endforeach
-                        @else
-                        @foreach ($resultBulanLalu as $item)
-                        <tr>
-                            <td>@currency($item->piutang_bulan_Lalu)</td>
-                        </tr>
-                        @endforeach
-                        @endif
-
-
-                    </tbody>
-                </table>
-               </div>
-            </div>
-            </div>
+                <div class="card-body text-center">
+                  Data Empty
+                </div>
+              </div>
             @else
-            <div class="card-body table-responsive" style="overflow-y: scroll; height:400px;">
-                <div class="card" style="min-height: 100%;">
-                    <div class="row">
-                        <div style="width: 100%;text-align: center; padding-top:10%;">
-                            <h5>Data Empty</h5>
-                        </div>
-                      </div>
+            <div class="card">
+                <div class="card-header">
+                  Featured
                 </div>
-            </div>
+                <div class="card-body">
+                
+                     <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>No Invoice</th>
+                                <th>Nama Debitur</th>
+                                <th>Piutang s.d Bulan Ini</th>
+                                <th>Tanggal Pembayaran</th>
+                                <th>Total Pembayaran</th>
+                                <th>Sisa Piutang</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($queryResult as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->no_invoice }}</td>
+                                <td>{{ $item->nm_debitur }}</td>
+                                <td>@currency($item->total_tagihan)</td>
+                                @if ($item->tgl_pembayaran == null)
+                                <td class="text-center">-</td>
+                                @else
+                                <td class="text-center">{{ $item->tgl_pembayaran->isoFormat('D MMMM Y') }}</td>
+                                @endif
+                                <td>@currency($item->total_pembayaran)</td>
+                                <td>@currency($item->sisa_piutang)</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                     </table>
+                
+                </div>
+              </div>
             @endif
-
+           
         </div>
-    </div>
-</div>
 <style>
     table, th, td {
 

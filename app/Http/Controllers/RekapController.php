@@ -56,58 +56,20 @@ class RekapController extends Controller
 
 
 
-    public function getRekapPiutangBulanLalu(Request $request){
-        $date_1 = $request->date_1;
-        $date_2 = $request->date_2;
-        $date_3 = $request->date_3;
-        $date_4 = $request->date_4;
-        $debitur = DebiturModel::get();
-
-        if($request->debiturId[0] == "all"){
-            $resultBulanLalu = DetailPembayaranModel::selectRaw('detail_pembayaran.no_pembayaran,piutang.no_invoice, debitur.nm_debitur,max(detail_pembayaran.sisa_tagihan)-SUM(detail_pembayaran.total_pembayaran) AS piutang_bulan_lalu')
-                    ->join('pembayaran', 'detail_pembayaran.id_pembayaran', 'pembayaran.id')
-                    ->join('piutang', 'pembayaran.id_piutang', 'piutang.id')
-                    ->join('debitur', 'piutang.id_debitur', 'debitur.id')
-                    ->join('invoices', 'piutang.id', 'invoices.id_piutang')
-                    ->join('jenis_pengobatan', 'invoices.id_layanan', 'jenis_pengobatan.id')
-                    ->whereBetween('detail_pembayaran.tgl_pembayaran', [$date_1, $date_2])
-                    ->groupBy('piutang.id')
-                    ->get();
-
-            $resultBulanIni = DetailPembayaranModel::selectRaw('detail_pembayaran.no_pembayaran,piutang.no_invoice, debitur.nm_debitur,max(detail_pembayaran.sisa_tagihan)-SUM(detail_pembayaran.total_pembayaran) AS piutang_bulan_ini')
-                    ->join('pembayaran', 'detail_pembayaran.id_pembayaran', 'pembayaran.id')
-                    ->join('piutang', 'pembayaran.id_piutang', 'piutang.id')
-                    ->join('debitur', 'piutang.id_debitur', 'debitur.id')
-                    ->join('invoices', 'piutang.id', 'invoices.id_piutang')
-                    ->join('jenis_pengobatan', 'invoices.id_layanan', 'jenis_pengobatan.id')
-                    ->whereBetween('detail_pembayaran.tgl_pembayaran', [$date_3, $date_4])
-                    ->groupBy('piutang.id')
-                    ->get();
-
-        }else{
-            $resultBulanLalu = DetailPembayaranModel::selectRaw('detail_pembayaran.no_pembayaran,piutang.no_invoice, debitur.nm_debitur,max(detail_pembayaran.sisa_tagihan)-SUM(detail_pembayaran.total_pembayaran) AS piutang_bulan_lalu')
-                    ->join('pembayaran', 'detail_pembayaran.id_pembayaran', 'pembayaran.id')
-                    ->join('piutang', 'pembayaran.id_piutang', 'piutang.id')
-                    ->join('debitur', 'piutang.id_debitur', 'debitur.id')
-                    ->join('invoices', 'piutang.id', 'invoices.id_piutang')
-                    ->join('jenis_pengobatan', 'invoices.id_layanan', 'jenis_pengobatan.id')
-                    ->whereBetween('detail_pembayaran.tgl_pembayaran', [$date_1, $date_2])
-                    ->whereIn('debitur.id', $request->debiturId)
-                    ->groupBy('piutang.id')
-                    ->get();
-
-            $resultBulanIni = DetailPembayaranModel::selectRaw('detail_pembayaran.no_pembayaran,piutang.no_invoice, debitur.nm_debitur,max(detail_pembayaran.sisa_tagihan)-SUM(detail_pembayaran.total_pembayaran) AS piutang_bulan_ini')
-                    ->join('pembayaran', 'detail_pembayaran.id_pembayaran', 'pembayaran.id')
-                    ->join('piutang', 'pembayaran.id_piutang', 'piutang.id')
-                    ->join('debitur', 'piutang.id_debitur', 'debitur.id')
-                    ->join('invoices', 'piutang.id', 'invoices.id_piutang')
-                    ->join('jenis_pengobatan', 'invoices.id_layanan', 'jenis_pengobatan.id')
-                    ->whereBetween('detail_pembayaran.tgl_pembayaran', [$date_3, $date_4])
-                    ->whereIn('debitur.id', $request->debiturId)
-                    ->groupBy('piutang.id')
-                    ->get();
-        }
+    public function getRekapPiutang(Request $request){
+        $debiturs = DebiturModel::get();
         $flag = "after-search";
-        return view('rekap.piutang', compact('debitur','flag','resultBulanLalu','resultBulanIni'));
+        $debitur = $request->debiturId;
+        $from = $request->from;
+        $to = $request->to;
+        $queryResult = DetailPembayaranModel::selectRaw("piutang.no_invoice,debitur.nm_debitur,pembayaran.total_tagihan AS total_tagihan,IF(SUM(detail_pembayaran.total_pembayaran) <= 0, null,MAX(detail_pembayaran.tgl_pembayaran)) AS tgl_pembayaran, pembayaran.total_tagihan-SUM(detail_pembayaran.total_pembayaran) AS sisa_piutang, SUM(detail_pembayaran.total_pembayaran) AS total_pembayaran")
+                    ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
+                    ->join("piutang", "pembayaran.id_piutang", "piutang.id")
+                    ->join("debitur", "piutang.id_debitur","debitur.id")
+                    ->whereBetween("tgl_pembayaran", [$from,$to])
+                    ->groupBy("piutang.id")
+                    ->get();
+
+        return view('rekap.piutang', compact('flag','queryResult','debiturs'));
     }
 }
