@@ -95,7 +95,7 @@ class PembayaranController extends Controller
         $detail_pembayaran_payload = [
             "no_pembayaran" => "pembayaran-default",
             "id_pembayaran" => $result->id,
-            "tgl_pembayaran" => date('Y-m-d H:i:s'),
+            "tgl_pembayaran" => $request->tgl_pengajuan,
             "total_pembayaran" => 0,
             "sisa_tagihan" => $request->total_tagihan,
             "status" => "belum lunas",
