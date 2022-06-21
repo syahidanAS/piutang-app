@@ -130,17 +130,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($queryResult as $item)
+                        
+                            @foreach ($queryResult as $key=>$item)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->no_invoice }}</td>
+                                <td>{{$key+1}}</td>
+                                <td>{{$item->no_invoice}}</td>
                                 <td>{{ $item->nm_debitur }}</td>
                                 <td>@currency($item->total_tagihan)</td>
-                                @if ($item->tgl_pembayaran == null)
-                                <td class="text-center">-</td>
-                                @else
-                                <td class="text-center">{{ $item->tgl_pembayaran->isoFormat('D MMMM Y') }}</td>
-                                @endif
+                                <td>{{ $item->tgl_pembayaran->isoFormat('D MMMM Y') }}</td>
                                 <td>@currency($item->total_pembayaran)</td>
                                 <td>@currency($item->sisa_piutang)</td>
                             </tr>

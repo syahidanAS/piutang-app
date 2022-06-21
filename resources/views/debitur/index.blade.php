@@ -71,6 +71,7 @@
                         </thead>
                         <tbody>
                             @foreach($debiturs as $item)
+                            
                             <tr id="row-data">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->nm_debitur }}</td>

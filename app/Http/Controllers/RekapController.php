@@ -62,14 +62,25 @@ class RekapController extends Controller
         $debitur = $request->debiturId;
         $from = $request->from;
         $to = $request->to;
-        $queryResult = DetailPembayaranModel::selectRaw("piutang.no_invoice,debitur.nm_debitur,pembayaran.total_tagihan AS total_tagihan,IF(SUM(detail_pembayaran.total_pembayaran) <= 0, null,MAX(detail_pembayaran.tgl_pembayaran)) AS tgl_pembayaran, pembayaran.total_tagihan-SUM(detail_pembayaran.total_pembayaran) AS sisa_piutang, SUM(detail_pembayaran.total_pembayaran) AS total_pembayaran")
+        $firstQuery = DetailPembayaranModel::selectRaw("piutang.no_invoice, debitur.nm_debitur,pembayaran.total_tagihan")
                     ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
                     ->join("piutang", "pembayaran.id_piutang", "piutang.id")
                     ->join("debitur", "piutang.id_debitur","debitur.id")
                     ->whereBetween("tgl_pembayaran", [$from,$to])
-                    ->groupBy("piutang.id")
+                    ->groupBy('piutang.id')
                     ->get();
 
-        return view('rekap.piutang', compact('flag','queryResult','debiturs'));
+
+
+        $queryResult = DetailPembayaranModel::selectRaw("piutang.no_invoice, debitur.nm_debitur,pembayaran.total_tagihan, detail_pembayaran.tgl_pembayaran,detail_pembayaran.total_pembayaran AS total_pembayaran, detail_pembayaran.sisa_tagihan-detail_pembayaran.total_pembayaran AS sisa_piutang")
+                    ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
+                    ->join("piutang", "pembayaran.id_piutang", "piutang.id")
+                    ->join("debitur", "piutang.id_debitur","debitur.id")
+                    ->whereBetween("tgl_pembayaran", [$from,$to])
+                    ->orderBy('piutang.id')
+                    ->get();
+
+        
+        // return view('rekap.piutang', compact('flag','queryResult','debiturs','firstQuery'));
     }
 }
