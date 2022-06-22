@@ -14,9 +14,13 @@ class PiutangController extends Controller
     public function index(){
 
         $debitur = DebiturModel::latest()->get();
-        $piutang = PiutangModel::selectRaw('piutang.id,total_piutang,no_invoice,tgl_pengajuan,tgl_tempo,id_debitur,debitur.nm_debitur,status_piutang,  DATEDIFF(NOW(), piutang.tgl_tempo) AS due')
-            ->join('debitur', 'piutang.id_debitur', '=', 'debitur.id')
-            ->get();
+        // $piutang = PiutangModel::selectRaw('piutang.id,total_piutang,no_invoice,tgl_pengajuan,tgl_tempo,id_debitur,debitur.nm_debitur,status_piutang,  DATEDIFF(NOW(), piutang.tgl_tempo) AS due')
+        //     ->join('debitur', 'piutang.id_debitur', '=', 'debitur.id')
+        //     ->get();
+
+        $piutang = PiutangModel::with('debitur')->get();
+
+      
         return view('piutang.index',compact(
             'piutang',
             'debitur'

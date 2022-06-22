@@ -55,9 +55,9 @@
                     <tbody>
                         @foreach($pembayaran as $item)
                         <tr id="row-data">
-                            <td>{{ $item->no_invoice }}</td>
-                            <td>{{ $item->nm_debitur }}</td>
-                            <td>{{ $item->tgl_tempo->isoFormat('D MMMM Y') }}</td>
+                            <td>{{ $item->piutang->no_invoice }}</td>
+                            <td>{{ $item->piutang->debitur->nm_debitur }}</td>
+                            <td>{{ $item->piutang->tgl_tempo->isoFormat('D MMMM Y') }}</td>
                             <td>@currency($item->total_tagihan)</td>
                             <td>@currency($item->total_pembayaran)</td>
                             @if($item->total_pembayaran < $item->total_tagihan )

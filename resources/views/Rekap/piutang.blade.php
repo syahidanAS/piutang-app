@@ -44,8 +44,8 @@
                             <label for="inputPassword3" class="col-sm-2 col-form-label">Jenis Debitur</label>
                             <div class="col-sm-8">
                               @if ($flag == "before-search")
-                              <select class="js-example-basic-multiple form-control" name="debiturId[]" id="debiturId" multiple="multiple" required>
-                                <option value="all">Pilih Semua</option>
+                              <select class="js-example-basic-multiple form-control" name="debiturId[]" id="debiturId" multiple="multiple">
+                                <option value="all" selected>Pilih Semua</option>
                                 @foreach($debitur as $deb)
                                 <option value="{{ $deb->id }}">{{ $deb->nm_debitur }}</option>
                                 @endforeach

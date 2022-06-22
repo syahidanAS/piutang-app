@@ -82,7 +82,7 @@
                                 <td>{{ $item->no_invoice }}</td>
                                 <td>{{ $item->tgl_pengajuan->isoFormat('D MMMM Y') }}</td>
                                 <td>{{ $item->tgl_tempo->isoFormat('D MMMM Y') }}</td>
-                                <td>{{ $item->nm_debitur }}</td>
+                                <td>{{ $item->debitur->nm_debitur }}</td>
                                 <td>@currency($item->total_piutang)</td>
                                 {{-- <td>{{ "Rp " . number_format($item->tagihan,2,',','.'); }}</td> --}}
 
