@@ -13,4 +13,11 @@ class PiutangModel extends Model
         'no_invoice', 'tgl_pengajuan', 'tgl_tempo', 'id_debitur','id_layanan','tagihan','status_piutang'
     ];
     protected $dates = ['tgl_tempo','tgl_pengajuan'];
+
+    public function debitur(){
+        return $this->belongsTo(DebiturModel::Class, 'id_debitur','id');
+    }
+    public function pembayaran(){
+        return $this->hasMany(PiutangModel::Class, 'id_piutang','id');
+    }
 }

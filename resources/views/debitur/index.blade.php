@@ -243,7 +243,7 @@
             document.getElementById('debitur-name').value = '';
             $(document).ready(function() {
                 let debName = document.getElementById("debitur-name").value;
-                $.get(url + '/debitur-api/?nm_debitur=' + debName, function(response) {
+                $.get(url + '/debitur-api?nm_debitur=' + debName, function(response) {
                     buildTable(response);
                 });
             })

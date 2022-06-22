@@ -76,6 +76,7 @@ Route::post('/update-user',     [KelolauserController::class, 'update'])->middle
 Route::delete('/user/{id}',     [KelolauserController::class, 'destroy'])->middleware('auth');
 
 Route::get('/pembayaran',       [PembayaranController::class, 'index'])->middleware('auth');
+Route::get('/pembayaran-api',   [PembayaranController::class, 'pembayaranApi'])->middleware('auth');
 Route::get('/status-checker',   [PembayaranController::class, 'status_checker'])->middleware('auth');
 Route::get('/detail-pembayaran',[PembayaranController::class, 'detail_pembayaran'])->middleware('auth');
 Route::post('/pay-transaction', [PembayaranController::class, 'store'])->middleware('auth');

@@ -18,4 +18,8 @@ class DetailPembayaranModel extends Model
         'status',
     ];
     protected $dates = ['tgl_pembayaran', 'tgl_pengajuan'];
+
+    public function pembayaran(){
+        return $this->belongsTo(Pembayaran::Class, 'id_pembayaran','id');
+    }
 }

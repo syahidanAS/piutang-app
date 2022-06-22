@@ -101,7 +101,13 @@
                     </li>
                     <h3 class="menu-title">Laporan</h3>
                     <li>
-                        <a href="{{url('edulevels')}}"> <i class="menu-icon fa fa-paste"></i>Rekapitulasi Piutang</a>
+                        <a href="{{url('rekap-piutang')}}"> <i class="menu-icon fa fa-paste"></i>Rekapitulasi Piutang</a>
+                    </li>
+                    <li>
+                        <a href="{{url('/rekap-umur-piutang')}}"> <i class="menu-icon fa fa-file-text-o"></i>Rekapitulasi Umur Piutang</a>
+                    </li>
+                    <li>
+                        <a href="{{url('/jurnal')}}"> <i class="menu-icon fa fa-file-text-o"></i>Jurnal Umum</a>
                     </li>
                 </ul>
                 @endif
@@ -112,16 +118,8 @@
         <header id="header" class="header">
             <div class="header-menu">
                 <div class="col-sm-7">
-                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
-                    <div class="header-left">
-                        <button class="search-trigger"><i class="fa fa-search"></i></button>
-                        <div class="form-inline">
-                            <form class="search-form">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
-                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
-                            </form>
-                        </div>
-                    </div>
+                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa-arrow-circle-o-left"></i></a>
+
                 </div>
 
                 <div class="col-sm-5">

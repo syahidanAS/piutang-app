@@ -16,4 +16,12 @@ class PembayaranModel extends Model
 
     ];
     protected $dates = ['tgl_tempo','tgl_pengajuan'];
+    
+    public function piutang(){
+        return $this->belongsTo(PiutangModel::Class, 'id_piutang','id');
+    }
+
+    public function detailPembayaran(){
+        return $this->hasMany(DetailPembayaran::Class, 'id_pembayaran','id');
+    }
 }

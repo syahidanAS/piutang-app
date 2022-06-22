@@ -62,25 +62,30 @@ class RekapController extends Controller
         $debitur = $request->debiturId;
         $from = $request->from;
         $to = $request->to;
-        $firstQuery = DetailPembayaranModel::selectRaw("piutang.no_invoice, debitur.nm_debitur,pembayaran.total_tagihan")
-                    ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
-                    ->join("piutang", "pembayaran.id_piutang", "piutang.id")
-                    ->join("debitur", "piutang.id_debitur","debitur.id")
-                    ->whereBetween("tgl_pembayaran", [$from,$to])
-                    ->groupBy('piutang.id')
-                    ->get();
 
 
 
-        $queryResult = DetailPembayaranModel::selectRaw("piutang.no_invoice, debitur.nm_debitur,pembayaran.total_tagihan, detail_pembayaran.tgl_pembayaran,detail_pembayaran.total_pembayaran AS total_pembayaran, detail_pembayaran.sisa_tagihan-detail_pembayaran.total_pembayaran AS sisa_piutang")
-                    ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
-                    ->join("piutang", "pembayaran.id_piutang", "piutang.id")
-                    ->join("debitur", "piutang.id_debitur","debitur.id")
-                    ->whereBetween("tgl_pembayaran", [$from,$to])
-                    ->orderBy('piutang.id')
-                    ->get();
+        if($debitur[0] == "all"){
+            $queryResult = DetailPembayaranModel::selectRaw("piutang.no_invoice, debitur.nm_debitur,pembayaran.total_tagihan, detail_pembayaran.tgl_pembayaran,detail_pembayaran.total_pembayaran AS total_pembayaran, detail_pembayaran.sisa_tagihan-detail_pembayaran.total_pembayaran AS sisa_piutang")
+            ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
+            ->join("piutang", "pembayaran.id_piutang", "piutang.id")
+            ->join("debitur", "piutang.id_debitur","debitur.id")
+            ->whereBetween("tgl_pembayaran", [$from,$to])
+            ->orderBy('piutang.id')
+            ->get();
+        }else{
+            $queryResult = DetailPembayaranModel::selectRaw("piutang.no_invoice, debitur.nm_debitur,pembayaran.total_tagihan, detail_pembayaran.tgl_pembayaran,detail_pembayaran.total_pembayaran AS total_pembayaran, detail_pembayaran.sisa_tagihan-detail_pembayaran.total_pembayaran AS sisa_piutang")
+            ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
+            ->join("piutang", "pembayaran.id_piutang", "piutang.id")
+            ->join("debitur", "piutang.id_debitur","debitur.id")
+            ->where("debitur.id", $debitur)
+            ->whereBetween("tgl_pembayaran", [$from,$to])
+            ->orderBy('piutang.id')
+            ->get();
+        }
 
-        
-        // return view('rekap.piutang', compact('flag','queryResult','debiturs','firstQuery'));
+
+
+        return view('rekap.piutang', compact('flag','queryResult','debiturs', 'from','to'));
     }
 }

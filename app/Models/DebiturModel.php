@@ -12,4 +12,10 @@ class DebiturModel extends Model
     protected $fillable = [
         'nm_debitur', 'alamat', 'email_deb', 'tlp_deb'
     ];
+
+    public function piutang(){
+        return $this->hasMany(PiutangModel::Class, 'id_debitur','id');
+    }
+
+
 }
