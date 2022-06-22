@@ -17,18 +17,12 @@ class CetakController extends Controller
         ->join('debitur', 'piutang.id_debitur', '=', 'debitur.id')
         ->where('piutang.id', $request->id)
         ->get();
-
-        $path = base_path('logo-karawang.png');
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $pic = 'data:image/' . $type . ';base64,' . base64_encode($data);
-
         $path2 = base_path('logo.png');
         $type2 = pathinfo($path2, PATHINFO_EXTENSION);
         $data2 = file_get_contents($path2);
         $logo = 'data:image/' . $type2 . ';base64,' . base64_encode($data2);
 
-        $pdf = PDF::loadView('pdf.surat', compact('piutang', 'pic', 'logo','today'))->setPaper('legal', 'potrait');;
+        $pdf = PDF::loadView('pdf.surat', compact('piutang', 'logo','today'))->setPaper('legal', 'potrait');;
         return  $pdf->stream('surat-tagihan.pdf',array('Attachment'=>0));
     }
 

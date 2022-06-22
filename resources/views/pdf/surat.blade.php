@@ -34,15 +34,15 @@
     <div class="rangkasurat">
         <table class="table-header" width="100%">
             <tr>
-                <td><img src="{{ $pic }}" alt="" width="90px"></td>
+                <td><img src="{{ $logo }}" alt="" width="90px"></td>
                 <td class="tengah">
                     <h2>PEMERINTAH KABUPATEN KARAWANG</h2>
                     <h2>DINAS KESEHATAN</h2>
-                    <h2>RUMAH SAKIT KHUSUS PARU</h2>
-                    <p>Jl. Jatisari RT.01/RW.05 Desa Jatisari Kec. Jatisari - Karawang</p>
-                    <p>Email: rsk.parukarawang@gmail.com - Tlp/Fax. 0264-8360156</p>
+                    <h2>RUMAH SAKIT .....................</h2>
+                    <p>........................</p>
+                    <p>Email: ............. - Tlp/Fax. .............</p>
                 </td>
-                <td><img src="{{ $logo }}" alt="" width="110px"></td>
+                <td></td>
                 <td class="tengah">
             </tr>
         </table>
