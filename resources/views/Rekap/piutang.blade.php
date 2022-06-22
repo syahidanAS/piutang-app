@@ -82,11 +82,6 @@
                                     </div>
                               </div>
                             </div>
-
-                            <button class="btn btn-danger text-light" type="submit">
-                              <i class="fa fa-times"></i>
-                              Batal
-                          </button>
                             <button class="btn btn-warning text-light" type="submit">
                                 <i class="fa fa-eye"></i>
                                 Lihat
@@ -113,10 +108,30 @@
             @else
             <div class="card">
                 <div class="card-header">
-                  Featured
+                    @php
+                        function tgl_indo($tanggal){
+                            $bulan = array (
+                                1 =>   'Januari',
+                                'Februari',
+                                'Maret',
+                                'April',
+                                'Mei',
+                                'Juni',
+                                'Juli',
+                                'Agustus',
+                                'September',
+                                'Oktober',
+                                'November',
+                                'Desember'
+                            );
+                            $pecahkan = explode('-', $tanggal);
+                            return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+                        }
+                    @endphp
+                  Rekapitulasi Piutang Periode {{tgl_indo($from)}} sampai {{tgl_indo($to)}}
                 </div>
                 <div class="card-body">
-                
+
                      <table>
                         <thead>
                             <tr>
@@ -130,7 +145,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        
+
                             @foreach ($queryResult as $key=>$item)
                             <tr>
                                 <td>{{$key+1}}</td>
@@ -144,11 +159,11 @@
                             @endforeach
                         </tbody>
                      </table>
-                
+
                 </div>
               </div>
             @endif
-           
+
         </div>
 <style>
     table, th, td {

@@ -25,31 +25,22 @@
             @csrf
             <div class="row">
                 <div class="col">
-                    <input class="form-control" type="date" id="from" onchange="getFrom()" name="from" required>
+                    <input class="form-control" type="date" id="from" onchange="getFrom()" name="from" value="{{$from}}" required>
                 </div>
                 -
                 <div class="col">
-                    <input class="form-control" type="date" id="to" onchange="getTo()"  name="to"required>
+                    <input class="form-control" type="date" id="to" onchange="getTo()" name="to" value="{{$to}}" required>
                 </div>
                 <div class="col">
                     <button class="btn btn-info " type="submit"><i class="fa fa-filter" onclick="search()"></i> Filter</button>
                 </div>
               </div>
-
-
-            {{-- <?php $years = range(2017, strftime("%Y", time())); ?>
-            <select name="tahun" onchange="getValue()" id="year-periode" style="font-size: 18px; ">
-				<option value="choose">Pilih Tahun</option>
-                <?php foreach($years as $year) : ?>
-                <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
-              <?php endforeach; ?>
-            </select> --}}
         </form>
       </div>
 
       <div style="float:left; margin-left:5px;">
         {{-- <form action="/cetak-jurnal" method="POST" target="_blank"> --}}
-        <form onclick="alert('Sebentar ya masih dimasak :)')">
+        <form onclick="alert('Sedang diperbaiki!')">
             @csrf
             <input class="" type="text" id="from-text" name="tahun" hidden  required>
             <input class="" type="text" id="to-text" name="tahun" hidden  required>

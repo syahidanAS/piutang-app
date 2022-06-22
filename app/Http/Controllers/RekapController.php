@@ -85,7 +85,7 @@ class RekapController extends Controller
         }
 
 
-        
-        return view('rekap.piutang', compact('flag','queryResult','debiturs'));
+
+        return view('rekap.piutang', compact('flag','queryResult','debiturs', 'from','to'));
     }
 }
