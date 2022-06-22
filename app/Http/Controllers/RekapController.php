@@ -78,8 +78,8 @@ class RekapController extends Controller
             ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
             ->join("piutang", "pembayaran.id_piutang", "piutang.id")
             ->join("debitur", "piutang.id_debitur","debitur.id")
+            ->where("debitur.id", $debitur)
             ->whereBetween("tgl_pembayaran", [$from,$to])
-            -where("debitur.id", $debitur)
             ->orderBy('piutang.id')
             ->get();
         }

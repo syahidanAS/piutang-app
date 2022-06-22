@@ -28,22 +28,20 @@ class CetakController extends Controller
         $data2 = file_get_contents($path2);
         $logo = 'data:image/' . $type2 . ';base64,' . base64_encode($data2);
 
-        // $pdf = PDF::setOptions(['isHtml5ParseEnabled' => true, 'isRemoteEnabled' => true]);
         $pdf = PDF::loadView('pdf.surat', compact('piutang', 'pic', 'logo','today'))->setPaper('legal', 'potrait');;
         return  $pdf->stream('surat-tagihan.pdf',array('Attachment'=>0));
     }
 
     public function mock(){
-
         return view('invoice.index');
     }
 
     public function printInvoice(Request $request){
 
-            $terbilang = $request->input('terbilang');
-            $potongan = $request->input('potongan');
-            $keterangan_invoice = $request->input('keterangan_invoice');
-            $materai = $request->input('materai');
+        $terbilang = $request->input('terbilang');
+        $potongan = $request->input('potongan');
+        $keterangan_invoice = $request->input('keterangan_invoice');
+        $materai = $request->input('materai');
 
         $piutang = PiutangModel::selectRaw('piutang.id,no_invoice,tgl_pengajuan,tgl_tempo,id_debitur,debitur.nm_debitur,  DATEDIFF(NOW(), piutang.tgl_tempo) AS due')
         ->join('debitur', 'piutang.id_debitur', '=', 'debitur.id')
@@ -84,7 +82,7 @@ class CetakController extends Controller
         $data2 = file_get_contents($path2);
         $logo = 'data:image/' . $type2 . ';base64,' . base64_encode($data2);
 
-        $pdf = PDF::loadView('pdf.invoice', compact('terbilang','potongan','materai','keterangan_invoice','piutang','invoice','unit','total','grand_total','pic', 'logo'))->setPaper('A4', 'potrait');;
+        $pdf = PDF::loadView('pdf.invoice', compact('terbilang','potongan','materai','keterangan_invoice','piutang','invoice','unit','total','grand_total','pic', 'logo'))->setPaper('legal', 'potrait');;
         return  $pdf->stream('invoice.pdf',array('Attachment'=>0));
     }
 

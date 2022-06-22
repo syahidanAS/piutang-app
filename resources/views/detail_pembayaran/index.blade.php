@@ -6,8 +6,9 @@
 <div class="breadcrumbs">
     <div class="col-sm-4">
         <div class="page-header float-left">
-            <a class="btn btn-info btn-sm mt-2" href="/pembayaran" style="border-radius:20px;"><i class="fa fa  fa-arrow-circle-o-left" style="margin-right: 7px"></i>Kembali || <span>Detail Pembayaran</span></a>
-
+            <a class="btn btn-info btn-sm mt-2" href="/pembayaran" style="border-radius:20px;"><i class="fa fa  fa-arrow-circle-o-left" style="margin-right: 7px"></i>Kembali</span></a>
+            <h1>Data Pembayaran / Detail Pembayaran</h1>
+          
         </div>
     </div>
 </div>

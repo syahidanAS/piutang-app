@@ -44,11 +44,11 @@ class PiutangController extends Controller
 
     public function api(Request $request){
         $piutang = PiutangModel::selectRaw('piutang.id,total_piutang,no_invoice,tgl_pengajuan,tgl_tempo,id_debitur,debitur.nm_debitur,status_piutang,  DATEDIFF(NOW(), piutang.tgl_tempo) AS due')
-        ->join('debitur', 'piutang.id_debitur', '=', 'debitur.id')
-        ->where('no_invoice','like',"%".$request->no_invoice."%")
-        ->orWhere('nm_debitur','like',"%".$request->no_invoice."%")
-        ->get();
-        return $piutang;
+                    ->join('debitur', 'piutang.id_debitur', '=', 'debitur.id')
+                    ->where('no_invoice','like',"%".$request->no_invoice."%")
+                    ->orWhere('nm_debitur','like',"%".$request->no_invoice."%")
+                    ->get();
+                    return $piutang;
     }
 
     public function store(Request $request){

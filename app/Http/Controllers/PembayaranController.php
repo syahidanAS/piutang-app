@@ -13,66 +13,25 @@ use PDO;
 
 class PembayaranController extends Controller
 {
-    public function tester(Request $request){
-        // $response = DetailPembayaranModel::selectRaw('detail_pembayaran.sisa_tagihan-detail_pembayaran.total_pembayaran AS status')
-        //         ->join('pembayaran', 'detail_pembayaran.id_pembayaran','pembayaran.id')
-        //         ->join('piutang', 'pembayaran.id_piutang', 'piutang.id')
-        //         ->where('piutang.id', $request->id_piutang)
-        //         ->orderBy('detail_pembayaran.id','desc')
-        //         ->first();
 
-        // if((int)$response->status <= 0){
-        //     $status ="lunas";
-        // }else{
-        //     $status = "belum lunas";
-        // }
-
-        $piutang = PiutangModel::with('debitur')->get();
-
-
-        return $piutang;
-    }
     public function index(){
-        // $pembayaran = PembayaranModel::selectRaw('piutang.id,no_invoice,tgl_tempo, debitur.nm_debitur, SUM(invoices.qty*jenis_pengobatan.harga) AS total')
-        //     ->join('debitur', 'piutang.id_debitur', 'debitur.id')
-        //     ->join('invoices', 'piutang.id', 'invoices.id_piutang')
-        //     ->join('jenis_pengobatan', 'invoices.id_layanan', 'jenis_pengobatan.id')
-        //     ->groupBy('piutang.id')
-        //     ->get();
-
-        $getInvoice = PiutangModel::selectRaw('piutang.id,no_invoice, debitur.nm_debitur')
-            ->join('debitur', 'piutang.id_debitur', 'debitur.id')
-            ->where('isLocked', false)
-            ->get();
-
-
-        // $pembayaran = PembayaranModel::selectRaw('pembayaran.total_pembayaran,id_piutang,pembayaran.id,total_tagihan,piutang.tgl_tempo,nm_debitur,no_invoice')
-        //     ->join('piutang', 'pembayaran.id_piutang', 'piutang.id')
-        //     ->join('debitur', 'piutang.id_debitur', 'debitur.id')
-        //     ->get();
-
-
-
-
-
-        // $status = PembayaranModel::selectRaw('SUM(total_pembayaran) AS dibayarkan')
-        //     ->groupBy('id_piutang')
-        //     ->get();
-
-		// $pembayaran = DB::select("
-		// SELECT pembayaran.id,id_piutang,no_pembayaran,total_pembayaran,sisa_tagihan,no_invoice,nm_debitur,piutang.tgl_tempo,pembayaran.status FROM
-		// pembayaran JOIN piutang on pembayaran.id_piutang=piutang.id
-        // JOIN debitur on piutang.id_debitur=debitur.id
-        // WHERE pembayaran.id IN(SELECT MAX(pembayaran.id) FROM pembayaran GROUP BY pembayaran.id_piutang);");
-
         $pembayaran = PembayaranModel::with(['piutang' => function ($query){
             $query->with('debitur');
         }])->get();
 
         return view('pembayaran.index',compact(
-            'pembayaran',
-            'getInvoice'
+            'pembayaran'
         ));
+    }
+
+    public function pembayaranApi(Request $request){
+        $pembayaran = pembayaranModel::selectRaw('pembayaran.id,piutang.id,piutang.no_invoice,debitur.nm_debitur,piutang.tgl_tempo,pembayaran.total_pembayaran,pembayaran.total_tagihan')
+                    ->join('piutang', 'pembayaran.id_piutang', 'piutang.id')
+                    ->join('debitur', 'piutang.id_debitur', 'debitur.id')
+                    ->where('piutang.no_invoice','like',"%".$request->search_payload."%")
+                    ->orWhere('debitur.nm_debitur','like',"%".$request->search_payload."%")
+                    ->get();
+        return $pembayaran;
     }
 
     public function getTotalTagihan(Request $request){

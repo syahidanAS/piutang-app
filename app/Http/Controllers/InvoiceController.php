@@ -81,20 +81,13 @@ class InvoiceController extends Controller
             ->where('id_piutang','like',"%".$idPiutangGlobal."%")
             ->join('jenis_pengobatan', 'invoices.id_layanan', '=', 'jenis_pengobatan.id')
             ->first();
-
-
             PiutangModel::where('id',$idPiutangGlobal)
             ->update(['total_piutang' => (int)$resultSum->total]);
-
-
             if($result){
                 return response()->json([
                     "status" => "ok",
                     "message" => "success"
                 ], 201);
-                //Jika invoice berhasil ditambahkan
-
-
             }else{
                 return response()->json([
                     "status" => "fail",
