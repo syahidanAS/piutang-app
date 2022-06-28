@@ -11,7 +11,7 @@
                     <table>
                         <tr>
                             <td><a class="btn btn-info btn-sm" href="/piutang" style="border-radius:20px;"><i class="fa fa  fa-arrow-circle-o-left" style="margin-right: 7px"></i>Kembali</a></td>
-                            <td><h1 style="margin-left: 15px">Data Piutang / Invoice</h1></td>
+                            <td><h1 style="margin-left: 15px">Piutang / Invoice</h1></td>
                         </tr>
                     </table>
                   </div>

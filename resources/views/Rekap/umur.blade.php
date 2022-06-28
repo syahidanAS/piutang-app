@@ -47,7 +47,7 @@
         <button class="btn btn-success" type="submit"><i class="fa fa-print" onclick="search()"></i> Cetak</button>
     </form>
   </div>
-    
+
 
 	</div>
   </div>
@@ -90,14 +90,14 @@
                     <td>@currency($item->hasil_persentase)</td>
                     <td></td>
                     <td></td>
-                  
+
                     <?php $column_five_percent += $item->hasil_persentase  ?>
                     <td>@currency($item->hasil_persentase)</td>
                     @elseif($item->umur_piutang >= 30 && $item->umur_piutang <= 60)
                     <td></td>
                     <td>@currency($item->hasil_persentase)</td>
                     <td></td>
-               
+
                     <td>@currency($item->hasil_persentase)</td>
                     <?php $column_ten_percent += $item->hasil_persentase  ?>
                     @elseif($item->umur_piutang >= 60 && $item->umur_piutang <= 90)
@@ -105,7 +105,7 @@
                     <td></td>
                     <td>@currency($item->hasil_persentase)</td>
                     <td></td>
-                
+
                     <td>@currency($item->hasil_persentase)</td>
                     <?php $column_fifty_percent += $item->hasil_persentase  ?>
                     @elseif($item->umur_piutang >= 90)

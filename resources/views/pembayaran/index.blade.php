@@ -7,7 +7,7 @@
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Data Pembayaran <span></span></h1>
+                <h1>Pembayaran <span></span></h1>
             </div>
         </div>
     </div>
@@ -154,7 +154,7 @@
                     <td>Rp. ${rupiah(response[i].total_pembayaran)}</td>
                     <td style="${style}">${status}</td>
                     <td style="width: 25px;">
-                        <a class="btn btn-info btn-sm text-light" href="/detail-pembayaran?id_piutang=${response[i].id_piutang}&total_tagihan=${response[i].total_tagihan}&id_pembayaran=${response[i].id}">Detail</a>    
+                        <a class="btn btn-info btn-sm text-light" href="/detail-pembayaran?id_piutang=${response[i].id_piutang}&total_tagihan=${response[i].total_tagihan}&id_pembayaran=${response[i].id}">Detail</a>
                     </td>
                     `
                 table.innerHTML += row

@@ -28,7 +28,7 @@ class CetakController extends Controller
         $data2 = file_get_contents($path2);
         $logo = 'data:image/' . $type2 . ';base64,' . base64_encode($data2);
 
-        $pdf = PDF::loadView('pdf.surat', compact('piutang', 'pic', 'logo','today'))->setPaper('legal', 'potrait');;
+        $pdf = PDF::loadView('pdf.surat', compact('piutang', 'logo','today','pic'))->setPaper('legal', 'potrait');;
         return  $pdf->stream('surat-tagihan.pdf',array('Attachment'=>0));
     }
 
@@ -119,6 +119,12 @@ class CetakController extends Controller
 
     public function printUmurPiutang(Request $request){
         $tahun = $request->tahun;
+
+        $path = base_path('kopsurat.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $pic = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
         $umur = DB::select("
         SELECT piutang.no_invoice, debitur.nm_debitur, pembayaran.total_tagihan-pembayaran.total_pembayaran AS nominal_piutang, IF(DATEDIFF(now(),piutang.tgl_tempo) <= 0, 0,DATEDIFF(now(),piutang.tgl_tempo)) AS umur_piutang,
         IF(DATEDIFF(now(),piutang.tgl_tempo) <= 0,(pembayaran.total_tagihan-pembayaran.total_pembayaran)*5/100,
@@ -130,7 +136,7 @@ class CetakController extends Controller
                     IF(DATEDIFF(now(),piutang.tgl_tempo) >= 90,(pembayaran.total_tagihan-pembayaran.total_pembayaran)*100/100,(pembayaran.total_tagihan-pembayaran.total_pembayaran)*100/100) )))))) AS hasil_persentase
         FROM piutang JOIN debitur ON piutang.id_debitur=debitur.id JOIN pembayaran ON piutang.id=pembayaran.id_piutang WHERE piutang.status_piutang='Belum Lunas' AND YEAR(piutang.tgl_tempo)=$request->tahun;
         ");
-        $pdf = PDF::loadView('pdf.umur', compact('umur'))->setPaper('A4', 'landscape');;
+        $pdf = PDF::loadView('pdf.umur', compact('umur','pic', 'tahun'))->setPaper('legal', 'landscape');;
         return  $pdf->stream('umur-piutang.pdf',array('Attachment'=>0));
     }
 }
