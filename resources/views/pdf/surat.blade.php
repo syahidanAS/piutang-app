@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    @foreach($piutang as $item)
+    <title>SURAT TAGIHAN - {{ $item->nm_debitur }}</title>
+    @endforeach
     <style type="text/css">
         body{
             font-family: Arial, Helvetica, sans-serif;
@@ -33,16 +35,16 @@
 <body>
     <div class="rangkasurat">
         <table class="table-header" width="100%">
-            <tr>
-                <td><img src="{{ $logo }}" alt="" width="90px"></td>
+            <tr >
+                <td ><img src="{{ $pic }}" alt="" width="90px"></td>
                 <td class="tengah">
                     <h2>PEMERINTAH KABUPATEN KARAWANG</h2>
                     <h2>DINAS KESEHATAN</h2>
-                    <h2>RUMAH SAKIT .....................</h2>
-                    <p>........................</p>
-                    <p>Email: ............. - Tlp/Fax. .............</p>
+                    <h2>RUMAH SAKIT KHUSUS PARU</h2>
+                    <p style="font-size: 0.9rem">Jl. Jatisari RT.01/RW.05 Desa Jatisari Kec. Jatisari - Karawang</p>
+                    <p style="font-size: 0.9rem">Email: rsk.parukarawang@gmail.com - Tlp/Fax. 0264-8360156<p>
                 </td>
-                <td></td>
+                <td><img src="{{ $logo }}" alt="" width="110px"></td>
                 <td class="tengah">
             </tr>
         </table>

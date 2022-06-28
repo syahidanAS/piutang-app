@@ -1,3 +1,5 @@
+<img class="img2" src="{{ $pic }}" alt="Pineapple">
+<h1 style="text-align:center; margin-bottom:30px; font-size:1.5rem;">REKAPITULASI UMUR PIUTANG TAHUN {{$tahun}}</h1>
 <div class="card-body">
     <?php $sum_nominal_piutang = 0 ?>
     <?php $column_five_percent = 0 ?>
@@ -76,12 +78,19 @@
             </tr>
     </table>
 </div>
-<div style="margin-top: 20px; font-size:1.1rem; text-align:right; border-style:solid; margin-left:56%; padding-top:5px; padding-bottom:5px; padding-right:5px;">
+<div style="margin-top: 20px; font-size:1.1rem; text-align:center; border-style:solid; margin-left:56%; padding-top:5px; padding-bottom:5px; padding-right:5px; margin-right:33px;">
     TOTAL CADANGAN KERUGIAN PIUTANG: @currency($column_grand_total)
 </div>
 <style>
 	table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
+    }
+    .img2{
+        display: block;
+        margin-left: 6%;
+        margin-bottom: 30px;
+        width: 85%;
+        height: 25%;
     }
   </style>
