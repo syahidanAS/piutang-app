@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DebiturModel;
 use App\Models\DetailPembayaranModel;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,6 +17,47 @@ class RekapController extends Controller
         return view('rekap.piutang', compact('flag','debitur'));
     }
 
+    public function actionRekap(Request $request){
+        $debiturs = DebiturModel::get();
+        $flag = "after-search";
+        $debitur = $request->debiturId;
+        $from = $request->from;
+        $to = $request->to;
+
+        if($debitur[0] == "all"){
+            $queryResult = DetailPembayaranModel::selectRaw("piutang.no_invoice, debitur.nm_debitur,pembayaran.total_tagihan, detail_pembayaran.tgl_pembayaran,detail_pembayaran.total_pembayaran AS total_pembayaran, detail_pembayaran.sisa_tagihan-detail_pembayaran.total_pembayaran AS sisa_piutang")
+            ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
+            ->join("piutang", "pembayaran.id_piutang", "piutang.id")
+            ->join("debitur", "piutang.id_debitur","debitur.id")
+            ->whereBetween("tgl_pembayaran", [$from,$to])
+            ->orderBy('piutang.id')
+            ->get();
+        }else{
+            $queryResult = DetailPembayaranModel::selectRaw("piutang.no_invoice, debitur.nm_debitur,pembayaran.total_tagihan, detail_pembayaran.tgl_pembayaran,detail_pembayaran.total_pembayaran AS total_pembayaran, detail_pembayaran.sisa_tagihan-detail_pembayaran.total_pembayaran AS sisa_piutang")
+            ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
+            ->join("piutang", "pembayaran.id_piutang", "piutang.id")
+            ->join("debitur", "piutang.id_debitur","debitur.id")
+            ->where("debitur.id", $debitur)
+            ->whereBetween("tgl_pembayaran", [$from,$to])
+            ->orderBy('piutang.id')
+            ->get();
+        }
+
+
+        if ($request->submitbtn == 'preview') {
+            return view('rekap.piutang', compact('flag','queryResult','debiturs', 'from','to'));
+        } else if ($request->submitbtn == 'cetak') {
+            $path = base_path('kopsurat.png');
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $data = file_get_contents($path);
+            $pic = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+            $pdf = PDF::loadView('pdf.piutang', compact('queryResult','pic', 'from', 'to'))->setPaper('legal', 'landscape');;
+            return  $pdf->stream('Jurnal Umum.pdf',array('Attachment'=>0));
+        } else {
+            return('Tidak ada action');
+        }
+    }
      // Function untuk get rekapitulasi piutang setelah dilakukan filtering
      public function getRekapPiutang(Request $request){
         $debiturs = DebiturModel::get();

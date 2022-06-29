@@ -87,6 +87,7 @@ Route::post('/create-payment', [PembayaranController::class, 'storePayment'])->m
 
 Route::get('/rekap-piutang',[RekapController::class, 'rekap_piutang'])->middleware('auth');
 Route::post('/get-rekap-piutang',[RekapController::class, 'getRekapPiutang'])->middleware('auth');
+Route::post('/get-rekapPiutang',[RekapController::class, 'actionRekap'])->middleware('auth');
 
 Route::get('/tester',[PembayaranController::class, 'tester'])->middleware('auth');
 Route::get('/rekap-umur-piutang',[RekapController::class, 'rekap_umur_piutang'])->middleware('auth');
