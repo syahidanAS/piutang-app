@@ -7,8 +7,34 @@
     <title>Jurnal Umum</title>
 </head>
 <body>
+    <?php
+    function tgl_indo($tanggal){
+        $bulan = array (
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $tanggal);
+
+        // variabel pecahkan 0 = tanggal
+        // variabel pecahkan 1 = bulan
+        // variabel pecahkan 2 = tahun
+
+        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+    }
+    ?>
+
     <img class="img2" src="{{ $pic }}" alt="Pineapple">
-    <h1 style="text-align:center; margin-bottom:30px; font-size:1.5rem;">JURNAL UMUM PERIODE {{$from}} s.d {{$to}}</h1>
+    <h1 style="text-align:center; margin-bottom:30px; font-size:1.5rem;">JURNAL UMUM PERIODE {{strtoupper(tgl_indo($from))}} s.d {{strtoupper(tgl_indo($to))}}</h1>
 
     <table class="w-100">
         <thead>
@@ -30,12 +56,12 @@
             @foreach ($jurnal as $key=>$item)
             <tr>
                 @if ($key == 0 || $key % 2 == 0)
-                <td class="text-center" rowspan="2">{{ $item->no_jurnal }}</td>
+                <td class="text-center" rowspan="2" style="text-align:center;">{{ $item->no_jurnal }}</td>
                 <td class="text-center" rowspan="2">{{ $item->tanggal->isoFormat('D MMMM Y') }}</td>
                 <td rowspan="2">{{ $item->keterangan }}</td>
                 @endif
-                <td class="text-center" style="border-bottom-style:none;">{{ $item->kode_perkiraan }}</td>
-                <td class="text-center">{{ $item->nama_perkiraan }}</td>
+                <td class="text-center" style="text-align:center;">{{ $item->kode_perkiraan }}</td>
+                <td style="text-align:center;">{{ $item->nama_perkiraan }}</td>
                 @if($item->flag == "piutang-pendapatan")
                 <td class="text-center" style="border-bottom-style:none;">@currency($item->nominal)</td>
                 <td class="text-center">-</td>
@@ -56,10 +82,10 @@
             </tr>
 
             @endforeach
-            <tr>
-              <td class="text-center" colspan="5"><b>TOTAL</b></td>
-              <td class="text-center"><b>@currency($debet_1+$debet_2)</b></td>
-              <td class="text-center"><b>@currency($kredit_1+$kredit_2)</b></td>
+            <tr style="text-align:center;">
+              <td  colspan="5"><b>TOTAL</b></td>
+              <td ><b>@currency($debet_1+$debet_2)</b></td>
+              <td ><b>@currency($kredit_1+$kredit_2)</b></td>
             </tr>
         </tbody>
        </table>
