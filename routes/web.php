@@ -87,12 +87,13 @@ Route::post('/create-payment', [PembayaranController::class, 'storePayment'])->m
 
 Route::get('/rekap-piutang',[RekapController::class, 'rekap_piutang'])->middleware('auth');
 Route::post('/get-rekap-piutang',[RekapController::class, 'getRekapPiutang'])->middleware('auth');
+Route::post('/get-rekapPiutang',[RekapController::class, 'actionRekap'])->middleware('auth');
 
 Route::get('/tester',[PembayaranController::class, 'tester'])->middleware('auth');
 Route::get('/rekap-umur-piutang',[RekapController::class, 'rekap_umur_piutang'])->middleware('auth');
 Route::post('/rekap-umur-piutang-after',[RekapController::class, 'rekapUmurPiutangAfter'])->middleware('auth');
 Route::post('/cetak-umur-piutang',[CetakController::class, 'printUmurPiutang'])->middleware('auth');
-Route::get('/journal-tester',[PembayaranController::class, 'getLastJournalId']);
+Route::post('/cetak-jurnal',[CetakController::class, 'printJurnalUmum'])->middleware('auth');
 
 Route::get('/jurnal',[JurnalController::class, 'index'])->middleware('auth');
 Route::post('/jurnal-after-search',[JurnalController::class, 'afterSearch'])->middleware('auth');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InvoiceModel;
+use App\Models\JurnalModel;
 use App\Models\PiutangModel;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
@@ -138,5 +139,22 @@ class CetakController extends Controller
         ");
         $pdf = PDF::loadView('pdf.umur', compact('umur','pic', 'tahun'))->setPaper('legal', 'landscape');;
         return  $pdf->stream('umur-piutang.pdf',array('Attachment'=>0));
+    }
+
+    public function printJurnalUmum(Request $request){
+        $from = $request->from;
+        $to = $request->to;
+
+        $path = base_path('kopsurat.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $pic = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        $jurnal = JurnalModel::whereBetween('tanggal', [$from,$to])->get();
+
+
+        $pdf = PDF::loadView('pdf.jurnal', compact('jurnal','pic', 'from', 'to'))->setPaper('legal', 'landscape');;
+        return  $pdf->stream('Jurnal Umum.pdf',array('Attachment'=>0));
+
     }
 }

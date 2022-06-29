@@ -39,11 +39,10 @@
       </div>
 
       <div style="float:left; margin-left:5px;">
-        {{-- <form action="/cetak-jurnal" method="POST" target="_blank"> --}}
-        <form onclick="alert('Sedang diperbaiki!')">
+        <form action="/cetak-jurnal" method="POST" target="_blank">
             @csrf
-            <input class="" type="text" id="from-text" name="tahun" hidden  required>
-            <input class="" type="text" id="to-text" name="tahun" hidden  required>
+            <input class="" type="text" id="from-text" name="from" hidden  required>
+            <input class="" type="text" id="to-text" name="to" hidden  required>
             <button class="btn btn-success" type="submit"><i class="fa fa-print" onclick="search()"></i> Cetak</button>
         </form>
       </div>

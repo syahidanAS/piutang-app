@@ -38,7 +38,7 @@
         <div class="card-header">
 			<div class="card">
 				<div class="card-body">
-                    <form action="/get-rekap-piutang" method="POST">
+                    <form action="/get-rekapPiutang" method="POST">
                         @csrf
                         <div class="form-group row">
                             <label for="inputPassword3" class="col-sm-2 col-form-label">Jenis Debitur</label>
@@ -82,15 +82,16 @@
                                     </div>
                               </div>
                             </div>
-                            <button class="btn btn-warning text-light" type="submit">
-                                <i class="fa fa-eye"></i>
-                                Lihat
-                            </button>
-                            <button class="btn btn-success" type="submit">
-                              <i class="fa fa-print"></i>
-                              Cetak
-                          </button>
-                        </form>
+                            <div class="row">
+                                <div class="col-1">
+                                    <input class="btn btn-warning text-light" type="submit" name="submitbtn" value="preview"/>
+                                </div>
+                                <div class="col">
+                                    <input class="btn btn-success text-light" type="submit" name="submitbtn" value="cetak"/>
+                                </div>
+                              </div>
+                            </form>
+
 				</div>
 			  </div>
             <div class="pull-right">
@@ -187,38 +188,5 @@ td{
     $('.js-example-basic-multiple').select2();
 
 });
-
-
-function previewReport(){
-    const date_1 = new Date(document.getElementById("tanggal1").value).toJSON().slice(0, 19).replace('T', ' ')
-    const date_2 = new Date(document.getElementById("tanggal2").value).toJSON().slice(0, 19).replace('T', ' ')
-    const date_3 = new Date(document.getElementById("tanggal3").value).toJSON().slice(0, 19).replace('T', ' ')
-    const date_4 = new Date(document.getElementById("tanggal4").value).toJSON().slice(0, 19).replace('T', ' ')
-
-
-        let payload = (
-        {
-            date_1: date_1,
-            date_2: date_2,
-            date_3: date_3,
-            date_4: date_4,
-            debiturId: $(".js-example-basic-multiple").val()
-        }
-        );
-
-
-        axios.post('/get-piutang-bulan-lalu', {
-            payload
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-}
-
-
 </script>
 @endsection
