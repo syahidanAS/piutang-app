@@ -40,7 +40,7 @@
         </form>
       </div>
 
-  <div style="margin-left: 30%">
+  <div style="margin-left: 35%">
     <form action="/cetak-umur-piutang" method="POST" target="_blank">
         @csrf
         <input  type="number" id="year-periode2" name="tahun" hidden required>
@@ -56,14 +56,15 @@
 	<div class="card-header">
 		<h4 id="periodeValue">Rekap Umur Piutang Tahun {{$tahun}}</h4>
 	</div>
-	<div class="card-body">
+	<div class="card-body table-responsive
+    ">
         <?php $sum_nominal_piutang = 0 ?>
         <?php $column_five_percent = 0 ?>
         <?php $column_ten_percent = 0 ?>
         <?php $column_fifty_percent = 0 ?>
         <?php $column_hundred_percent = 0 ?>
         <?php $column_grand_total = 0 ?>
-		<table class="text-center" id="age-table">
+		<table class="text-center table table-striped" id="age-table">
             <thead>
                 <tr>
 					<th>No</th>
@@ -97,6 +98,7 @@
                     <td></td>
                     <td>@currency($item->hasil_persentase)</td>
                     <td></td>
+                    <td></td>
 
                     <td>@currency($item->hasil_persentase)</td>
                     <?php $column_ten_percent += $item->hasil_persentase  ?>
@@ -125,7 +127,7 @@
                 <tr>
                     <th colspan="3">TOTAL</th>
                     <th>@currency($sum_nominal_piutang)</th>
-                    <th></th>
+                    <th> </th>
                     <th>@currency($column_five_percent)</th>
                     <th>@currency($column_ten_percent)</th>
                     <th>@currency($column_fifty_percent)</th>
@@ -244,9 +246,6 @@
   </script>
 
   <style>
-	table, th, td {
-        border: 1px solid black;
-        font-size: 0.9rem;
-    }
+
   </style>
 @endsection

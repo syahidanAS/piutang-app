@@ -132,8 +132,8 @@
                   Rekapitulasi Piutang Periode {{tgl_indo($from)}} sampai {{tgl_indo($to)}}
                 </div>
                 <div class="card-body">
-
-                     <table>
+                <div class="table-responsive">
+                <table class="table">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -160,7 +160,7 @@
                             @endforeach
                         </tbody>
                      </table>
-
+                </div>
                 </div>
               </div>
             @endif

@@ -18,8 +18,8 @@
 @section('content')
 <div class="sufee-login d-flex align-content-center flex-wrap">
     <div class="container text-center" style="margin-top: 7%; margin-bottom:2%;">
-        <img src="{{ asset('images/hospital-logo.png') }}" alt="" style="width: 100px;">
-        <h3 class="mt-2">Sistem Pengelolaan Piutang Rumah Sakit</h3>
+        <img src="{{ asset('images/logo.png') }}" alt="" style="width: 120px;">
+        <h3 class="mt-2">Sistem Pengendalian Piutang Tak Tertagih Rumah Sakit</h3>
     </div>
 </div>
 

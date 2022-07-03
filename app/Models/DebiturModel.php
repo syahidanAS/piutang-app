@@ -10,7 +10,7 @@ class DebiturModel extends Model
     use HasFactory;
     protected $table = 'debitur';
     protected $fillable = [
-        'nm_debitur', 'alamat', 'email_deb', 'tlp_deb'
+        'nm_debitur','kode_debitur', 'alamat', 'email_deb', 'tlp_deb'
     ];
 
     public function piutang(){

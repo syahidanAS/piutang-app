@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('debitur', function (Blueprint $table) {
             $table->id();
+            $table->text('kode_debitur');
             $table->string('nm_debitur', 30);
             $table->text('alamat');
             $table->string('email_deb', 30);

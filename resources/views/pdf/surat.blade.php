@@ -87,7 +87,7 @@
                     melalui email keuanganrskp2020@gmail.com ditujukan kebagian keuangan.
             </p>
             <p style="text-align: justify; text-justify: inter-word; margin-bottom:4%;">
-                Demikian kami sampaiakan, atas perhatian dan kerjasamanya kami ucapkan terimakasih.
+                Demikian kami sampaikan, atas perhatian dan kerjasamanya kami ucapkan terimakasih.
             </p>
             <p style="margin-left: 65%; margin-bottom:12%;">
                 <b>Ka. Sub Bagian Keuangan</b>

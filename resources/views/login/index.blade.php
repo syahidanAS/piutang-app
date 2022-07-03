@@ -35,7 +35,7 @@
             </button>
         </div>
         @endif
-        <h5 class="pb-2" style="text-align: center">SISTEM PENGELOLAAN PIUTANG RUMAH SAKIT</h5>
+        <h5 class="pb-2" style="text-align: center">SISTEM PENGENDALIAN PIUTANG TAK TERTAGIH RS KHUSUS PARU</h5>
         <form action="/login" method="POST">
             @csrf
           <!-- Email input -->

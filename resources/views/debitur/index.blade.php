@@ -64,6 +64,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Kode Debitur</th>
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th class="text-center" colspan="3">Keterangan</th>
@@ -74,6 +75,7 @@
                             
                             <tr id="row-data">
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->kode_debitur}}</td>
                                 <td>{{ $item->nm_debitur }}</td>
                                 <td>{{ $item->email_deb }}</td>
                                 <td style="width: 25px;">
@@ -185,9 +187,12 @@
                     $("#modalTitle").append( `Ubah Data Debitur`);
                     $("#isiModal").empty();
                     $( "#isiModal" ).append( `
-                @csrf
+                            @csrf
                             <div class="form-group">
                                 <input type="text" id="id" class="form-control" name="id" value="${id}" hidden>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="id" class="form-control" name="id" value="${kode_debitur}" hidden>
                             </div>
                 <div class="form-group">
                             <label for="nama" class=" form-control-label">Nama Perusahaan/Debitur</label>
@@ -217,6 +222,9 @@
                     $("#isiModal").empty();
                     $( "#isiModal" ).append( `
 
+                    <div class="form-group">
+                                <input type="text" id="id" class="form-control" name="id" value="${kode_debitur}" hidden>
+                            </div>
                     <div class="form-group">
                             <label for="nama" class=" form-control-label">Nama Perusahaan/Debitur</label>
                             <input type="text" id="nama" class="form-control" name="nm_debitur" value="${nm_debitur}" readonly>
@@ -264,6 +272,7 @@
             for (var i = 0; i < response.length; i++) {
                 var row = `
                     <td>${i+1}</td>
+                    <td>${response[i].kode_debitur}</td>
                     <td>${response[i].nm_debitur}</td>
                     <td>${response[i].email_deb}</td>
                     <td style="width: 25px;">
