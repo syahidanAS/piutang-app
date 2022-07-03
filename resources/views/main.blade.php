@@ -38,7 +38,6 @@
 
     </style>
 </head>
-
 <body>
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
@@ -51,7 +50,7 @@
             </div>
             <div id="main-menu" class="main-menu collapse navbar-collapse ">
                 @if(auth()->user()->role== "admin")
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" >
                     <li class="active">
                         <a href="{{ url('/dashboard') }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
@@ -156,7 +155,6 @@
     <script src="{{ asset('style/assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('style/assets/js/plugins.js') }}"></script>
     <script src="{{ asset('style/assets/js/main.js') }}"></script>
-
 
 </body>
 

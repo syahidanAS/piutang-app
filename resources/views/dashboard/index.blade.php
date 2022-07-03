@@ -20,43 +20,48 @@
     <div class="container text-center" style="margin-top: 7%; margin-bottom:2%;">
         <img src="{{ asset('images/logo.png') }}" alt="" style="width: 120px;">
         <h3 class="mt-2">Sistem Pengendalian Piutang Tak Tertagih Rumah Sakit</h3>
+        
     </div>
 </div>
-
-<div class="sufee-login d-flex align-content-center flex-wrap">
-    <div class="container mt-4" style="margin-left: 19%;">
-        <div class="col-md-3">
-            <div class="card" style="border-radius: 0px 30px 0px 0px;  border: 1px solid #000000;">
-                <div class="card-body">
-                    <strong class="card-title">@currency($totalPiutang)</strong>
-                </div>
-                <div class="card-footer text-center" >
-                    <strong>Total Piutang</strong>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card" style="border-radius: 0px 30px 0px 0px; border: 1px solid #000000;">
-                <div class="card-body">
-                    <strong class="card-title">@currency($totalPembayaran)</strong>
-                </div>
-                <div class="card-footer text-center">
-                    <strong>Realisasi Piutang</strong>
+<div class="col-xl-3 col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="stat-widget-one">
+                            <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
+                            <div class="stat-content dib">
+                                <div class="stat-text">Total Piutang</div>
+                                <div class="stat-digit">1,012</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="card" style="border-radius: 0px 30px 0px 0px; border: 1px solid #000000;">
-                <div class="card-body">
-                    <strong class="card-title">@currency($sisaPiutang)</strong>
-                </div>
-                <div class="card-footer text-center">
-                    <strong>Sisa Piutang</strong>
+            <div class="col-xl-3 col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="stat-widget-one">
+                            <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
+                            <div class="stat-content dib">
+                                <div class="stat-text">Realisasi Piutang</div>
+                                <div class="stat-digit">1,012</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
+            <div class="col-xl-3 col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="stat-widget-one">
+                            <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
+                            <div class="stat-content dib">
+                                <div class="stat-text">Sisa Piutang</div>
+                                <div class="stat-digit">1,012</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 @endsection
