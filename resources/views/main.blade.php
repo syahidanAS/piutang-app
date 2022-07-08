@@ -61,9 +61,9 @@
                     <li>
                         <a href="{{url('jenis-pengobatan')}}"> <i class="menu-icon fa fa-medkit"></i>Jenis Pengobatan</a>
                     </li>
-                    {{-- <li>
+                     <li>
                         <a href="{{url('akun')}}"> <i class="menu-icon fa fa-money"></i>Data Akun</a>
-                    </li> --}}
+                    </li>
                     <li>
                         <a href="{{url('users')}}"> <i class="menu-icon fa fa-user"></i>Data User</a>
                     </li>
