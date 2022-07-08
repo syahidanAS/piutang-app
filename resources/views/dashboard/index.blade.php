@@ -23,14 +23,14 @@
         
     </div>
 </div>
-<div class="col-xl-3 col-lg-6">
+<div class="col-xl-3 col-lg-6" style="margin-left: 10%">
                 <div class="card">
                     <div class="card-body">
                         <div class="stat-widget-one">
                             <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
                             <div class="stat-content dib">
                                 <div class="stat-text">Total Piutang</div>
-                                <div class="stat-digit">1,012</div>
+                                <div class="stat-digit"><p>@currency($totalPiutang)</p></div>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
                             <div class="stat-content dib">
                                 <div class="stat-text">Realisasi Piutang</div>
-                                <div class="stat-digit">1,012</div>
+                                <div class="stat-digit"><p>@currency($totalPembayaran )</p></div>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                             <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
                             <div class="stat-content dib">
                                 <div class="stat-text">Sisa Piutang</div>
-                                <div class="stat-digit">1,012</div>
+                                <div class="stat-digit"><p>@currency($sisaPiutang)</p></div>
                             </div>
                         </div>
                     </div>
