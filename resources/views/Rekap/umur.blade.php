@@ -56,7 +56,7 @@
 	<div class="card-header">
 		<h4 id="periodeValue">Rekap Umur Piutang Tahun {{$tahun}}</h4>
 	</div>
-	<div class="card-body table-responsive
+	<div class="card-body
     ">
         <?php $sum_nominal_piutang = 0 ?>
         <?php $column_five_percent = 0 ?>
@@ -64,7 +64,7 @@
         <?php $column_fifty_percent = 0 ?>
         <?php $column_hundred_percent = 0 ?>
         <?php $column_grand_total = 0 ?>
-		<table class="text-center table table-striped" id="age-table">
+		<table class="text-center" id="age-table">
             <thead>
                 <tr>
 					<th>No</th>
@@ -89,6 +89,7 @@
                     <td>{{ $item->umur_piutang }}</td>
                     @if($item->umur_piutang >= 0 && $item->umur_piutang <= 30)
                     <td>@currency($item->hasil_persentase)</td>
+                    <td></td>
                     <td></td>
                     <td></td>
 
@@ -246,6 +247,10 @@
   </script>
 
   <style>
-
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        font-size: 1rem;
+    }
   </style>
 @endsection
