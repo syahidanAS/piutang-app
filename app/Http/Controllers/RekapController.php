@@ -29,6 +29,7 @@ class RekapController extends Controller
             ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
             ->join("piutang", "pembayaran.id_piutang", "piutang.id")
             ->join("debitur", "piutang.id_debitur","debitur.id")
+            ->where('no_pembayaran', '!=',  "empty" )
             ->whereBetween("tgl_pembayaran", [$from,$to])
             ->orderBy('piutang.id')
             ->get();
@@ -38,6 +39,7 @@ class RekapController extends Controller
             ->join("piutang", "pembayaran.id_piutang", "piutang.id")
             ->join("debitur", "piutang.id_debitur","debitur.id")
             ->where("debitur.id", $debitur)
+            ->andWhere('no_pembayaran', '!=',  "empty" )
             ->whereBetween("tgl_pembayaran", [$from,$to])
             ->orderBy('piutang.id')
             ->get();
@@ -71,6 +73,7 @@ class RekapController extends Controller
             ->join("pembayaran", "detail_pembayaran.id_pembayaran", "pembayaran.id")
             ->join("piutang", "pembayaran.id_piutang", "piutang.id")
             ->join("debitur", "piutang.id_debitur","debitur.id")
+            ->where('no_pembayaran', '!=',  "empty" )
             ->whereBetween("tgl_pembayaran", [$from,$to])
             ->orderBy('piutang.id')
             ->get();
@@ -80,6 +83,7 @@ class RekapController extends Controller
             ->join("piutang", "pembayaran.id_piutang", "piutang.id")
             ->join("debitur", "piutang.id_debitur","debitur.id")
             ->where("debitur.id", $debitur)
+            ->where('no_pembayaran', '!=',  "empty" )
             ->whereBetween("tgl_pembayaran", [$from,$to])
             ->orderBy('piutang.id')
             ->get();
