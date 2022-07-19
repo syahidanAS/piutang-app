@@ -65,7 +65,7 @@ class PembayaranController extends Controller
         );
 
         $detail_pembayaran_payload = [
-            "no_pembayaran" => "empty",
+            "no_pembayaran" => "pembayaran-default",
             "id_pembayaran" => $result->id,
             "tgl_pembayaran" => $request->tgl_pengajuan,
             "total_pembayaran" => 0,
