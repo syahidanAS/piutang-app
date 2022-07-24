@@ -146,10 +146,49 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                // membuat array baru untuk query result
+                                $newQueryResult = array();
+                                foreach ($queryResult as $value) {
+                                    $newQueryResult[$value['no_invoice']][] = $value;
+                                }
+                            @endphp
+                            @foreach ($newQueryResult as $data)
+                                <tr>
+                                    <td rowspan="{{ count($data) }}" style="text-align: center;vertical-align: middle;">{{ $loop->iteration }}</td>
+                                    <td rowspan="{{ count($data) }}" style="text-align: center;vertical-align: middle;">{{ $data[0]['no_invoice'] }}</td>
+                                    <td rowspan="{{ count($data) }}" style="text-align: center;vertical-align: middle;">{{ $data[0]['nm_debitur'] }}</td>
+                                    <td rowspan="{{ count($data) }}" style="text-align: center;vertical-align: middle;">@currency($data[0]['total_tagihan'])</td>
+                                    @php
+                                        // variable baru untuk menampung nominal pembayaran
+                                        $nominal_pembayaran = 0;
 
-                            @foreach ($queryResult as $key=>$item)
+                                        //variable untuk akumulasi sisa piutang
+                                        $sisa_uang = $data[0]['total_tagihan'];
+                                    @endphp
+                                    @foreach ($data as $key=>$item)
+                                        <td>{{ $item->tgl_pembayaran->isoFormat('D MMMM Y') }}</td>
+                                        @php
+                                            //akumulasi nominal pembayaran
+                                            $nominal_pembayaran += (int)$item->total_pembayaran;
+                                            $sisa_uang -= (int)$item->total_pembayaran;
+                                        @endphp
+                                        <td>@currency($item->total_pembayaran)</td>
+                                        <td>@currency($item->sisa_piutang)</td>
+                                        </tr><tr>
+                                    @endforeach
+                                </tr>
+                                <tr style="text-align: center;vertical-align: middle;">
+                                    <td colspan="3">Total </td>
+                                    <td>@currency($data[0]['total_tagihan'])</td>
+                                    <td></td>
+                                    <td>@currency($nominal_pembayaran)</td>
+                                    <td>@currency($sisa_uang)</td>
+                                </tr>
+                            @endforeach
+                            {{-- @foreach ($queryResult as $key=>$item)
                             <tr>
-                                <td>{{$key+1}}</td>
+                                <td>{{$loop->iteration}}</td>
                                 <td>{{$item->no_invoice}}</td>
                                 <td>{{ $item->nm_debitur }}</td>
                                 <td>@currency($item->total_tagihan)</td>
@@ -157,7 +196,7 @@
                                 <td>@currency($item->total_pembayaran)</td>
                                 <td>@currency($item->sisa_piutang)</td>
                             </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                      </table>
                 </div>
