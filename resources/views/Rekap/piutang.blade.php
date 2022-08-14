@@ -133,7 +133,10 @@
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">
-                <table class="table">
+                <table >
+                    <?php $current_piutang = 0 ?>
+                    <?php $cumulative_payment = 0 ?>
+                    <?php $piutang_balance = 0 ?>
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -159,10 +162,10 @@
                                     <td rowspan="{{ count($data) }}" style="text-align: center;vertical-align: middle;">{{ $data[0]['no_invoice'] }}</td>
                                     <td rowspan="{{ count($data) }}" style="text-align: center;vertical-align: middle;">{{ $data[0]['nm_debitur'] }}</td>
                                     <td rowspan="{{ count($data) }}" style="text-align: center;vertical-align: middle;">@currency($data[0]['total_tagihan'])</td>
+                                    <?php $current_piutang += $data[0]['total_tagihan']  ?>
                                     @php
                                         // variable baru untuk menampung nominal pembayaran
                                         $nominal_pembayaran = 0;
-
                                         //variable untuk akumulasi sisa piutang
                                         $sisa_uang = $data[0]['total_tagihan'];
                                     @endphp
@@ -173,8 +176,10 @@
                                             $nominal_pembayaran += (int)$item->total_pembayaran;
                                             $sisa_uang -= (int)$item->total_pembayaran;
                                         @endphp
-                                        <td>@currency($item->total_pembayaran)</td>
+                                        <td class="text-center">@currency($item->total_pembayaran)</td>
+                                        <?php $cumulative_payment +=  $item->total_pembayaran?>
                                         <td>@currency($item->sisa_piutang)</td>
+                                        <?php $piutang_balance += $item->sisa_piutang ?>
                                         </tr><tr>
                                     @endforeach
                                 </tr>
@@ -197,6 +202,10 @@
 
                             <tr>
                                 <td class="text-center" colspan="3">TOTAL</td>
+                                <td class="text-center">@currency($current_piutang )</td>
+                                <td></td>
+                                <td class="text-center">@currency($cumulative_payment )</td>
+                                <td class="text-center">@currency($piutang_balance )</td>
                             </tr>
                         </tbody>
                      </table>
