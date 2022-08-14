@@ -59,7 +59,7 @@
                         <a href="{{url('debitur')}}"> <i class="menu-icon fa fa-address-card"></i>Debitur</a>
                     </li>
                     <li>
-                        <a href="{{url('jenis-pengobatan')}}"> <i class="menu-icon fa fa-medkit"></i>Jenis Pengobatan</a>
+                        <a href="{{url('jenis-pengobatan')}}"> <i class="menu-icon fa fa-medkit"></i>Jenis Pelayanan</a>
                     </li>
                      <li>
                         <a href="{{url('akun')}}"> <i class="menu-icon fa fa-money"></i>Data Akun</a>
@@ -98,12 +98,6 @@
                     <h3 class="menu-title">Laporan</h3>
                     <li>
                         <a href="{{url('rekap-piutang')}}"> <i class="menu-icon fa fa-paste"></i>Rekapitulasi Piutang</a>
-                    </li>
-                    <li>
-                        <a href="{{url('/rekap-umur-piutang')}}"> <i class="menu-icon fa fa-file-text-o"></i>Rekapitulasi Umur Piutang</a>
-                    </li>
-                    <li>
-                        <a href="{{url('/jurnal')}}"> <i class="menu-icon fa fa-file-text-o"></i>Jurnal Umum</a>
                     </li>
                 </ul>
                 @endif

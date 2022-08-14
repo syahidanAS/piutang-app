@@ -1,13 +1,13 @@
 @extends('main')
 
-@section('title', 'Jenis Pengobatan')
+@section('title', 'Jenis Pelayanan')
 
 @section('breadcrumbs')
 <div class="breadcrumbs">
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Data Jenis Pengobatan</h1>
+                <h1>Data Jenis Pelayanan</h1>
             </div>
         </div>
     </div>
@@ -136,7 +136,7 @@
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="smallmodalLabel">Data Jenis Pengobatan</h5>
+                <h5 class="modal-title" id="smallmodalLabel">Data Jenis Pelayanan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

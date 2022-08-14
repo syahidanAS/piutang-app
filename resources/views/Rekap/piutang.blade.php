@@ -178,16 +178,12 @@
                                         </tr><tr>
                                     @endforeach
                                 </tr>
-                                <tr style="text-align: center;vertical-align: middle;">
-                                    <td colspan="3">Total </td>
-                                    <td>@currency($data[0]['total_tagihan'])</td>
-                                    <td></td>
-                                    <td>@currency($nominal_pembayaran)</td>
-                                    <td>@currency($sisa_uang)</td>
-                                </tr>
                             @endforeach
                             {{-- @foreach ($queryResult as $key=>$item)
                             <tr>
+
+                            <?php $sum_current_piutang = 0 ?>
+
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$item->no_invoice}}</td>
                                 <td>{{ $item->nm_debitur }}</td>
@@ -196,7 +192,12 @@
                                 <td>@currency($item->total_pembayaran)</td>
                                 <td>@currency($item->sisa_piutang)</td>
                             </tr>
+                            <?php $sum_current_piutang += $item->total_tagihan  ?>
                             @endforeach --}}
+
+                            <tr>
+                                <td class="text-center" colspan="3">TOTAL</td>
+                            </tr>
                         </tbody>
                      </table>
                 </div>
