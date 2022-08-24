@@ -53,7 +53,7 @@
   @if(count($dataJurnal) <= 0)
   <div class="card mx-2">
 	<div class="card-header">
-		{{-- <h4 id="periodeValue">Rekap Umur Piutang Tahun {{$tahun}}</h4> --}}
+		{{-- <h4 id="periodeValue">Data Jurnal Tahun {{$tahun}}</h4> --}}
 	</div>
 	<div class="card-body text-center">
        {{-- <p>Data jurnal pada tahun {{$tahun}} tidak ditemukan</p> --}}

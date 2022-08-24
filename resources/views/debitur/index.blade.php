@@ -176,6 +176,7 @@
             $(document).on('click', '#edit', function() {
                 var id = $(this).data('id');
                 var nm_debitur = $(this).data('nm_debitur');
+                var kode_debitur = $(this).data('kd_debitur');
                 var email_deb = $(this).data('email_deb');
                 var alamat = $(this).data('alamat');
                 var tlp_deb = $(this).data('tlp_deb');
